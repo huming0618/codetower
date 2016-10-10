@@ -37,6 +37,7 @@
     "watchify": "^3.7.0"
   },
   "dependencies": {
+    "nodegit": "^0.16.0",
     "semantic-ui": "^2.2.4",
     "semantic-ui-css": "^2.2.4"
   }
