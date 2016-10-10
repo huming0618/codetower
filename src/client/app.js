@@ -1,3 +1,5 @@
+// require('./app.css');
+import './app.css';
 import Vue from 'vue';
 //import ExclamationsViewer from './exclamations_viewer.vue';
 
