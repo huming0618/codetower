@@ -10,9 +10,15 @@ const repoList = {
     
 // /code - list all registered repostiory
 router.get('/', async (ctx) => {
-  //ctx.body = await City.find()
   ctx.body = await {'repo': Object.keys(repoList).sort() };
 });
+
+router.get('/:repo', async (ctx) => {
+  const name = ctx.params.repo;
+  
+  //ctx.body = await City.find()
+});
+
 
 // //get the list of the files in repo
 // router.get('/:repo', async (ctx) => {

@@ -46,6 +46,7 @@
     "nodegit": "^0.16.0",
     "pg": "^6.1.0",
     "semantic-ui": "^2.2.4",
-    "semantic-ui-css": "^2.2.4"
+    "semantic-ui-css": "^2.2.4",
+    "walk": "^2.3.9"
   }
 }
