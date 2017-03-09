@@ -1,13 +1,14 @@
 const API = "/code";
-
 const prefix = {'prefix': API};
+
 const router = require('koa-router')(prefix);
+const path = require('path');
+const config = require(path.resolve(__dirname, '../../../../', 'config'));
+
 //const router = new Router(prefix);
 
-const repoList = {
-    "workseditor": "/home/peter/workspace/Panda"
-}
-    
+const repoList = config.repo;
+
 // /code - list all registered repostiory
 router.get('/', async (ctx) => {
   ctx.body = await {'repo': Object.keys(repoList).sort() };
@@ -15,22 +16,7 @@ router.get('/', async (ctx) => {
 
 router.get('/:repo', async (ctx) => {
   const name = ctx.params.repo;
-  
-  //ctx.body = await City.find()
+  ctx.body = name;
 });
-
-
-// //get the list of the files in repo
-// router.get('/:repo', async (ctx) => {
-//   const name = ctx.params.repo;
-//   //ctx.body = await City.find()
-// });
-
-// //get the source-code for the file
-// router.get('/:repo/:file', async (ctx) => {
-//   const repo = ctx.params.repo;
-//   const file = ctx.params.file;
-//   //ctx.body = await City.find()
-// });
 
 module.exports = router;

@@ -10,11 +10,6 @@ const addAPIRoutes = require('./API');
 
 const app = new koa();
 
-
-
-
-
-
 // app.use(convert(router.routes()));
 app.use(convert(serve({"rootDir":"public", "index": "index.html"})));
 addAPIRoutes(app);

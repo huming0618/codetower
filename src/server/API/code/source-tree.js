@@ -5,9 +5,7 @@ const options = {
 }
 
 const getTree = function(path){
-    let out = {};
     let pointer = {};
-    let promise = new Promise();
 
     return new Promise((resolve,reject)=>{
         const walker = walk.walk(path, options);
@@ -17,8 +15,19 @@ const getTree = function(path){
         });
 
         walker.on("file", (root, state, next)=>{
-            let item = {'type':'file', 'name': state.name};
+            let name = state.name;
+
+            let item = {'type':'file', 'name': name, 'root': root};
+            //console.log('file state', pointer[root]);
+            if (!pointer[root]){
+                pointer[root] = {
+                    'type': 'dir',
+                    'name': root,
+                    'items': []
+                }
+            }
             pointer[root].items.push(item);
+
             next();
         });
 
@@ -30,13 +39,15 @@ const getTree = function(path){
                     'items': []
                 }
             }
-            let item = {'type':'dir', 'name': state.name, 'items':[]};
-            pointer[root].items.push(pointer[name] = item);
+            let name = state.name;
+            let item = {'type':'dir', 'name': name, 'items':[]};
+            pointer[root].items.push(pointer[name]=item);
+
             next();
         });
 
         walker.on('end', ()=>{
-            promise/resolve();
+            resolve(pointer);
         });
     });
 }

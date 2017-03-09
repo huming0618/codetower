@@ -5,3 +5,4 @@ dist
 bower_components
 build
 test/bower_components
+config.js
