@@ -1,14 +1,27 @@
 const walk = require('walk');
+const path = require('path');
+
 const options = {
     'followLinks': false,
     'filters': ['node_modules','.git']
 }
 
-const getTree = function(path){
-    let pointer = {};
+const getTree = function(sourcePath){
+    const tree = {'type': 'dir', 'name': path.basename(sourcePath), 'items': [], 'root': null};
+    const pointer = {};
+    pointer[sourcePath] = tree;
+
+    // const findPosition = (rootPath)=>{
+    //     if (rootPath === sourcePath){
+    //         return tree;
+    //     }
+    //     else {
+            
+    //     }
+    // }
 
     return new Promise((resolve,reject)=>{
-        const walker = walk.walk(path, options);
+        const walker = walk.walk(sourcePath, options);
 
         walker.on("names", (root, names)=>{
 
@@ -16,13 +29,14 @@ const getTree = function(path){
 
         walker.on("file", (root, state, next)=>{
             let name = state.name;
-
-            let item = {'type':'file', 'name': name, 'root': root};
+            let key = path.join(root, name)
+            let item = {'type':'file', 'name': name, 'root': root, 'path': key};
             //console.log('file state', pointer[root]);
             if (!pointer[root]){
                 pointer[root] = {
                     'type': 'dir',
-                    'name': root,
+                    'name': path.basename,
+                    'path': root, 
                     'items': []
                 }
             }
@@ -35,14 +49,15 @@ const getTree = function(path){
             if (!pointer[root]){
                 pointer[root] = {
                     'type': 'dir',
-                    'name': root,
+                    'name': path.basename,
+                    'path': root, 
                     'items': []
                 }
             }
             let name = state.name;
-            let item = {'type':'dir', 'name': name, 'items':[]};
-            pointer[root].items.push(pointer[name]=item);
-
+            let key = path.join(root, name)
+            let item = {'type':'dir', 'name': name, 'items':[], 'path': key};
+            pointer[root].items.push(pointer[key] = item);
             next();
         });
 

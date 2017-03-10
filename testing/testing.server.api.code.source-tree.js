@@ -7,8 +7,9 @@ describe('source-tree', function() {
     console.log('testing source tree')
     sourceTree("/home/peter/workspace/webtalk/src/main/webapp")
         .then((theTree)=>{
-            console.log(JSON.stringify(theTree, undefined, 2));
+  
             console.log('done - testing source tree');
+            require('fs').writeFileSync("tree.json", JSON.stringify(theTree, undefined, 2));  
             done();
         })
 
