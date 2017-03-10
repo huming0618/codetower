@@ -9,7 +9,8 @@ describe('source-tree', function() {
         .then((theTree)=>{
   
             console.log('done - testing source tree');
-            require('fs').writeFileSync("tree.json", JSON.stringify(theTree, undefined, 2));  
+            //require('fs').writeFileSync("tree.json", JSON.stringify(theTree, undefined, 2));  
+            console.log(JSON.stringify(theTree, undefined, 2));
             done();
         })
 
