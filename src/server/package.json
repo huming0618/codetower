@@ -1,15 +1,12 @@
 {
   "name": "codetower",
   "version": "1.0.0",
-  "description": "code-tower",
+  "description": "code-tower-server",
   "main": "index.js",
   "scripts": {
     "prestart": "npm run build:js",
-    "build:js": "browserify src/client/app.js -t browserify-css -t vueify -p [ vueify/plugins/extract-css -o public/styles.bundle.css ] -t babelify -o public/app.bundle.js",
-    "watch:js": "watchify src/client/app.js -t vueify -t babelify -p browserify-hmr -p [ vueify/plugins/extract-css -o public/styles.bundle.css ] -o public/app.bundle.js",
     "test:js": "mocha testing --require babel-core/register",
-    "dev": "concurrently \"npm run serve\" \"npm run watch:js\"",
-    "serve": "nodemon ./src/server/server.js --exec babel-node --presets es2016"
+    "serve": "nodemon server.js --exec babel-node --presets es2016"
   },
   "keywords": [
     "code"
@@ -25,21 +22,13 @@
     "babel-preset-es2016": "^6.22.0",
     "babel-preset-stage-3": "^6.17.0",
     "babel-runtime": "^6.11.6",
-    "babelify": "^7.3.0",
-    "browserify": "^13.1.0",
-    "browserify-css": "^0.9.2",
-    "browserify-hmr": "^0.3.5",
     "chai": "^3.5.0",
     "concurrently": "^3.0.0",
     "github-api": "^2.3.0",
     "koa": "^1.2.4",
     "koa-static-server": "^0.1.8",
     "mocha": "^3.1.2",
-    "nodemon": "^1.10.2",
-    "vue": "^2.0.0-rc.8",
-    "vue-hot-reload-api": "^2.0.6",
-    "vueify": "^9.2.4",
-    "watchify": "^3.7.0"
+    "nodemon": "^1.10.2"
   },
   "dependencies": {
     "babel-preset-es2015-node5": "^1.2.0",
@@ -48,8 +37,6 @@
     "koa-router": "^5.4.0",
     "nodegit": "^0.16.0",
     "pg": "^6.1.0",
-    "semantic-ui": "^2.2.4",
-    "semantic-ui-css": "^2.2.4",
     "walk": "^2.3.9"
   }
 }

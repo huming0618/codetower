@@ -3,7 +3,7 @@ const prefix = {'prefix': API};
 
 const router = require('koa-router')(prefix);
 const path = require('path');
-const config = require(path.resolve(__dirname, '../../../../', 'config'));
+const config = require(path.resolve(__dirname, '../../', 'config'));
 
 const sourceTree = require('./source-tree.js');
 //const router = new Router(prefix);
