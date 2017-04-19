@@ -38,14 +38,14 @@ export default {
             if (this.isFolder) {
                 this.open = !this.open
             }
-        },
-        changeType: function () {
-            if (!this.isFolder) {
-                Vue.set(this.model, 'children', [])
-                this.addChild()
-                this.open = true
-            }
         }
+        // ,changeType: function () {
+        //     if (!this.isFolder) {
+        //         Vue.set(this.model, 'children', [])
+        //         this.addChild()
+        //         this.open = true
+        //     }
+        // }
         // ,addChild: function () {
         //     this.model.children.push({
         //         name: 'new stuff'

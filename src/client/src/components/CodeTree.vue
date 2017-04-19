@@ -11,12 +11,22 @@
 
 <script>
 import CodeTreeItem from './CodeTreeItem.vue';
+import Vue from 'vue';
+import Rx from 'rxjs/Rx';
+import VueRx from 'vue-rx';
+
+Vue.use(VueRx,Rx);
 
 export default {
     name: 'CodeTree',
     components: {
         "CodeTreeItem": CodeTreeItem
     },
+    subscriptions: function(){
+        return {
+            treeData: Rx.Observable.create()
+        }
+    }, 
     data () {
         return {
             treeData: {
