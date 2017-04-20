@@ -2,8 +2,7 @@
   <li>
     <div
       :class="{bold: isFolder}"
-      @click="toggle"
-      @dblclick="changeType">
+      @click="toggle">
       {{model.name}}
       <span v-if="isFolder">[{{open ? '-' : '+'}}]</span>
     </div>

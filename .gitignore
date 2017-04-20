@@ -4,6 +4,5 @@ dist
 .tmp
 .sass-cache
 bower_components
-build
 test/bower_components
 config.js

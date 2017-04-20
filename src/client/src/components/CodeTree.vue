@@ -17,19 +17,7 @@ import VueRx from 'vue-rx';
 
 Vue.use(VueRx,Rx);
 
-export default {
-    name: 'CodeTree',
-    components: {
-        "CodeTreeItem": CodeTreeItem
-    },
-    subscriptions: function(){
-        return {
-            treeData: Rx.Observable.create()
-        }
-    }, 
-    data () {
-        return {
-            treeData: {
+const treeCode = {
                 name: 'My Tree',
                 children: [
                         { name: 'hello' },
@@ -56,9 +44,23 @@ export default {
                         ]
                         }
                     ]
-            }
-        }
+            };
+            
+export default {
+    name: 'CodeTree',
+    components: {
+        "CodeTreeItem": CodeTreeItem
     },
+    subscriptions: function(){
+        return {
+            treeData: Rx.Observable.of(treeCode)
+        }
+    }, 
+    // data () {
+    //     return {
+    //         treeData: 
+    //     }
+    // },
     computed: {
         isFolder: function () {
             return this.model.children && this.model.children.length
