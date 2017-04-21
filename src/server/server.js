@@ -4,6 +4,8 @@
 
 const koa = require('koa');
 const convert = require('koa-convert');
+const cors = require('koa-cors');
+
 const serve = require('koa-static-server');
 
 const addAPIRoutes = require('./API');
@@ -11,7 +13,8 @@ const addAPIRoutes = require('./API');
 const app = new koa();
 
 // app.use(convert(router.routes()));
-app.use(convert(serve({"rootDir":"public", "index": "index.html"})));
+app.use(cors())
+    .use(convert(serve({"rootDir":"public", "index": "index.html"})));
 addAPIRoutes(app);
 
 

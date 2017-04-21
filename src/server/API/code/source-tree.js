@@ -7,8 +7,9 @@ const options = {
 }
 
 const getTree = function(sourcePath){
-    const tree = {'type': 'dir', 'name': path.basename(sourcePath), 'items': [], 'root': null};
-    const pointer = {};
+    const tree = {'type': 'dir', 'name': path.basename(sourcePath), 'items': [], 'root': null, path: sourcePath};
+    let pointer = {};
+
     pointer[sourcePath] = tree;
 
     // const findPosition = (rootPath)=>{
@@ -32,28 +33,28 @@ const getTree = function(sourcePath){
             let key = path.join(root, name)
             let item = {'type':'file', 'name': name, 'root': root, 'path': key};
             //console.log('file state', pointer[root]);
-            if (!pointer[root]){
-                pointer[root] = {
-                    'type': 'dir',
-                    'name': path.basename,
-                    'path': root, 
-                    'items': []
-                }
-            }
+            // if (!pointer[root]){
+            //     pointer[root] = {
+            //         'type': 'dir',
+            //         'name': path.basename(root),
+            //         'path': root, 
+            //         'items': []
+            //     }
+            // }
             pointer[root].items.push(item);
 
             next();
         });
 
         walker.on("directory", (root, state, next)=>{
-            if (!pointer[root]){
-                pointer[root] = {
-                    'type': 'dir',
-                    'name': path.basename,
-                    'path': root, 
-                    'items': []
-                }
-            }
+            // if (!pointer[root]){
+            //     pointer[root] = {
+            //         'type': 'dir',
+            //         'name': path.basename(root),
+            //         'path': root, 
+            //         'items': []
+            //     }
+            // }
             let name = state.name;
             let key = path.join(root, name)
             let item = {'type':'dir', 'name': name, 'items':[], 'path': key};
@@ -62,7 +63,7 @@ const getTree = function(sourcePath){
         });
 
         walker.on('end', ()=>{
-            resolve(pointer);
+            resolve(tree);
         });
     });
 }

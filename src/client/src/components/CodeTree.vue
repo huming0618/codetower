@@ -17,6 +17,30 @@ import VueRx from 'vue-rx';
 
 Vue.use(VueRx,Rx);
 
+const getTreeCode = new Promise((resolve,reject)=>{
+    fetch('http://localhost:3000/code/codetower')
+        .then(resp=>{
+            return resp.json();
+        })
+        .then(data=>{
+            console.log('data', data);
+            resolve(data);
+        })
+});
+
+// Rx.Observable.fromPromise(getTreeCode).subscribe(x=>{
+//     console.log('from getTreeCode', x);
+// })
+// const getTreeCode = function(){
+//     return fetch('http://localhost:3000/code/codetower')
+//         // .then(response=>{
+//         //     //console.log(response);
+//         //     return response.json();
+//         // });
+// }
+
+// getTreeCode().then(x=>console.log(x));
+
 const treeCode = {
                 name: 'My Tree',
                 children: [
@@ -53,19 +77,17 @@ export default {
     },
     subscriptions: function(){
         return {
-            treeData: Rx.Observable.of(treeCode)
+            treeData: Rx.Observable.fromPromise(getTreeCode)
         }
     }, 
     // data () {
     //     return {
-    //         treeData: 
+    //         treeData: {
+    //             items: [],
+    //             "name": ""
+    //         }
     //     }
     // },
-    computed: {
-        isFolder: function () {
-            return this.model.children && this.model.children.length
-        }
-    },
     props: {
         model: Object
     },

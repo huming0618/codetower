@@ -9,7 +9,7 @@
     <ul v-show="open" v-if="isFolder">
       <CodeTreeItem
         class="item"
-        v-for="model in model.children"
+        v-for="model in model.items"
         :model="model">
       </CodeTreeItem>
     </ul>
@@ -26,7 +26,8 @@ export default {
     },
     computed: {
         isFolder: function () {
-            return this.model.children && this.model.children.length
+            console.log('this.model', this.model);
+            return this.model.items && this.model.items.length
         }
     },
     props: {
