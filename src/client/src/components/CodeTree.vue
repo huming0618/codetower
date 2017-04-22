@@ -23,7 +23,7 @@ const getTreeCode = new Promise((resolve,reject)=>{
             return resp.json();
         })
         .then(data=>{
-            console.log('data', data);
+            //console.log('data', data);
             resolve(data);
         })
 });
@@ -40,6 +40,11 @@ const getTreeCode = new Promise((resolve,reject)=>{
 // }
 
 // getTreeCode().then(x=>console.log(x));
+
+const empty = {
+    name: "",
+    items: []
+}
 
 const treeCode = {
                 name: 'My Tree',
@@ -77,7 +82,7 @@ export default {
     },
     subscriptions: function(){
         return {
-            treeData: Rx.Observable.fromPromise(getTreeCode)
+            treeData: Rx.Observable.fromPromise(getTreeCode).startWith(empty)
         }
     }, 
     // data () {

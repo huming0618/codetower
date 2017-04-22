@@ -26,7 +26,6 @@ export default {
     },
     computed: {
         isFolder: function () {
-            console.log('this.model', this.model);
             return this.model.items && this.model.items.length
         }
     },
