@@ -46,34 +46,7 @@ const empty = {
     items: []
 }
 
-const treeCode = {
-                name: 'My Tree',
-                children: [
-                        { name: 'hello' },
-                        { name: 'wat' },
-                        {
-                        name: 'child folder',
-                        children: [
-                            {
-                            name: 'child folder',
-                            children: [
-                                { name: 'hello' },
-                                { name: 'wat' }
-                            ]
-                            },
-                            { name: 'hello' },
-                            { name: 'wat' },
-                            {
-                            name: 'child folder',
-                            children: [
-                                { name: 'hello' },
-                                { name: 'wat' }
-                            ]
-                            }
-                        ]
-                        }
-                    ]
-            };
+
             
 export default {
     name: 'CodeTree',
@@ -110,6 +83,7 @@ body {
 }
 .item {
   cursor: pointer;
+  text-align: left;
 }
 .bold {
   font-weight: bold;

@@ -37,6 +37,9 @@ export default {
             if (this.isFolder) {
                 this.open = !this.open
             }
+            else {
+                console.log(this.model.path)
+            }
         }
         // ,changeType: function () {
         //     if (!this.isFolder) {
@@ -60,11 +63,9 @@ body {
   font-family: Menlo, Consolas, monospace;
   color: #444;
 }
-.item {
-  cursor: pointer;
-}
 .bold {
   font-weight: bold;
+  text-align: left;
 }
 ul {
   padding-left: 1em;
