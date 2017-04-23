@@ -38,7 +38,7 @@ export default {
                 this.open = !this.open
             }
             else {
-                console.log(this.model.path)
+                console.log(this.model.path);
             }
         }
         // ,changeType: function () {
