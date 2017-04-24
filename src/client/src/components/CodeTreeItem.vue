@@ -39,6 +39,7 @@ export default {
             }
             else {
                 console.log(this.model.path);
+                window.bus.$emit('source-path-selected', this.model.path);
             }
         }
         // ,changeType: function () {

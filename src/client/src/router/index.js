@@ -5,6 +5,8 @@ import SourceView from '@/components/SourceView';
 
 Vue.use(Router);
 
+window.bus = new Vue();
+
 export default new Router({
   routes: [
     {
