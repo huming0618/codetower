@@ -9,7 +9,6 @@
 
 <script>
 import CodeTree from './CodeTree.vue';
-import Vue from 'vue';
             
 export default {
     name: 'SourceView',
