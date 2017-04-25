@@ -1,10 +1,8 @@
 
 
 <template>
-    <div class="left-nav">
-        <CodeTree>
-        </CodeTree>
-    </div>
+    <CodeTree>
+    </CodeTree>
 </template>
 
 <script>
@@ -27,13 +25,5 @@ export default {
 body{
 
 }
-.left-nav{
-    position: absolute;
-    height: 100%;
-    top: 0;
-    left: 0;
-    width: 300px;
-    overflow: auto;
-    background-color: #F6F6F6;
-}
+
 </style>
