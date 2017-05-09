@@ -6,7 +6,7 @@
             <SourceView></SourceView>
         </div>
         <div class="middle row-item">
-            <CodeEditor></CodeEditor>
+            <CodeEditor value=""></CodeEditor>
         </div>
         <div class="right row-item">
 
@@ -25,10 +25,21 @@ export default {
         "SourceView": SourceView,
         "CodeEditor": CodeEditor
     },
+
     props: {
+
     },
+
     methods: {
 
+    },
+
+    mounted: function(){
+        const vm = this;
+        window.bus.$on('source-path-selected', function(path){
+            console.log('path-selected', path);
+            
+        });
     }
 }
 </script>
@@ -56,10 +67,10 @@ export default {
 }
 
 .middle{
-    background: green;
+    background: gray;
 }
 
 .right{
-    background: red;
+    background: #fff;
 }
 </style>

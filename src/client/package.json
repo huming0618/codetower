@@ -12,6 +12,7 @@
     "test": "npm run unit && npm run e2e"
   },
   "dependencies": {
+    "brace": "^0.10.0",
     "rxjs": "^5.2.0",
     "vue": "^2.2.2",
     "vue-router": "^2.2.0",
