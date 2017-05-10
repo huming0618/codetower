@@ -6,7 +6,7 @@
             <SourceView></SourceView>
         </div>
         <div class="middle row-item">
-            <CodeEditor value=""></CodeEditor>
+            <CodeEditor :value="editorCode"></CodeEditor>
         </div>
         <div class="right row-item">
 
@@ -21,24 +21,40 @@ import CodeEditor from './CodeEditor.vue';
             
 export default {
     name: 'Main',
+
     components: {
         "SourceView": SourceView,
         "CodeEditor": CodeEditor
     },
 
-    props: {
-
+    data () {
+        return {
+            editorCode: ''
+        }
     },
 
     methods: {
-
+        updateSourceCode: function(code){
+            this.editorCode = code;
+        }
     },
 
     mounted: function(){
         const vm = this;
+
         window.bus.$on('source-path-selected', function(path){
-            console.log('path-selected', path);
-            
+            // console.log('path-selected', path);
+            //vm.sourceCode = "test";
+            vm.updateSourceCode('test');
+            //vm.$set(vm._data, 'value', '<div></div>')
+            //         fetch('http://localhost:3000/code/codetower')
+            // .then(resp=>{
+            //     return resp.json();
+            // })
+            // .then(data=>{
+            //     //console.log('data', data);
+            //     resolve(data);
+            // })
         });
     }
 }

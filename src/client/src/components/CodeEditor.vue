@@ -30,12 +30,20 @@ export default {
 
     data () {
         return {
-            content: "<div></div>"
+            content: "<div></div>",
+            editor: null
         }
     },
 
     methods: {
 
+    },
+
+    watch:{
+        value:function (val) {
+            if(this.contentBackup !== val)
+                this.editor.setValue(val,1);
+        }
     },
 
     mounted: function(){
@@ -45,6 +53,8 @@ export default {
         const theme = 'chrome';
 
         const editor = ace.edit(vm.$el);
+        vm.editor = editor;
+        
         editor.$blockScrolling = Infinity;
         //editor.setOption("enableEmmet", true);
         editor.getSession().setMode('ace/mode/'+lang);
@@ -58,6 +68,7 @@ export default {
             vm.$emit('input', content);
             vm.contentBackup = content;
         });
+
     }
 }
 </script>
