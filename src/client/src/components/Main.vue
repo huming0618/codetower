@@ -34,8 +34,16 @@ export default {
     },
 
     methods: {
-        updateSourceCode: function(code){
-            this.editorCode = code;
+        updateSourceCode: function(path){
+            //this.editorCode = code;
+            fetch('http://localhost:3000/code/codetower/' + path)
+                .then(resp=>{
+                    return resp.text();
+                })
+                .then(data=>{
+                    //console.log('data', data);
+                    this.editorCode = data;
+                })
         }
     },
 
@@ -45,7 +53,7 @@ export default {
         window.bus.$on('source-path-selected', function(path){
             // console.log('path-selected', path);
             //vm.sourceCode = "test";
-            vm.updateSourceCode('test');
+            vm.updateSourceCode(path);
             //vm.$set(vm._data, 'value', '<div></div>')
             //         fetch('http://localhost:3000/code/codetower')
             // .then(resp=>{

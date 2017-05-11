@@ -30,7 +30,11 @@ const getTree = function(sourcePath){
 
         walker.on("file", (root, state, next)=>{
             let name = state.name;
-            let key = path.join(root, name)
+     
+            let key = path.join(root.replace(sourcePath, ''), name);
+            if (key.startsWith(path.sep)){
+                key = key.slice(1);
+            }
             let item = {'type':'file', 'name': name, 'root': root, 'path': key};
             //console.log('file state', pointer[root]);
             // if (!pointer[root]){
