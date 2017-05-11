@@ -6,7 +6,7 @@
   "scripts": {
     "prestart": "npm run build:js",
     "test:js": "mocha testing --require babel-core/register",
-    "serve": "nodemon server.js --exec babel-node --presets es2016"
+    "serve": "nodemon server.js --exec babel-node --presets es2016 --debug"
   },
   "keywords": [
     "code"

@@ -1,8 +1,11 @@
 const API = "/code";
 const prefix = {'prefix': API};
 
-const router = require('koa-router')(prefix);
 const path = require('path');
+const fs = require('fs');
+
+const router = require('koa-router')(prefix);
+
 const config = require(path.resolve(__dirname, '../../', 'config.js'));
 
 const sourceTree = require('./source-tree.js');
@@ -20,7 +23,16 @@ router.get('/:repo', async (ctx) => {
   const path = repoList[name];
 
   ctx.body = await Promise.resolve(sourceTree(path));
-
 });
+
+router.get('/:repo/*', async (ctx) => {
+  const codeFile = ctx.params[0]; //relative path
+  const repoPath = repoList[ctx.params.repo];
+  const codeFilePath = path.join(repoPath, codeFile);
+
+  ctx.body = fs.readFileSync(codeFilePath);
+  ctx.set('Content-Type', 'text/plain');
+});
+
 
 module.exports = router;
