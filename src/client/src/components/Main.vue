@@ -2,13 +2,13 @@
 
 <template>
     <div id="main">
-        <div class="left row-item">
+        <div class="left col-item">
             <SourceView></SourceView>
         </div>
-        <div class="middle row-item">
+        <div class="middle col-item">
             <CodeEditor :value="editorCode"></CodeEditor>
         </div>
-        <div class="right row-item">
+        <div class="right col-item">
 
         </div>
     </div>
@@ -80,7 +80,7 @@ export default {
     flex-direction: row;
 }
 
-.row-item{
+.col-item{
     -webkit-flex: 1 1 auto;
     flex: 1 1 auto;
     width: 30px;
@@ -88,10 +88,12 @@ export default {
 
 .left {
     background: #F8F8F8;
+
 }
 
 .middle{
     background: gray;
+    flex-grow: 2;
 }
 
 .right{

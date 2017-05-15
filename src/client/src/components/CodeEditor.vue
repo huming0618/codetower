@@ -10,6 +10,9 @@
 // import editor from 'vue2-ace-editor';
 
 import ace from 'brace';
+import 'brace/mode/html';
+import 'brace/mode/javascript';
+import 'brace/theme/cobalt';
 
 export default {
     name: 'CodeEditor',
@@ -50,7 +53,7 @@ export default {
         const vm = this;
 
         const lang = 'javascript';
-        const theme = 'chrome';
+        const theme = 'cobalt';
 
         const editor = ace.edit(vm.$el);
         vm.editor = editor;
@@ -60,6 +63,8 @@ export default {
         editor.getSession().setMode('ace/mode/'+lang);
         editor.setTheme('ace/theme/'+theme);
         editor.setValue(vm.value, 1);
+        editor.setFontSize(20);
+        editor.setReadOnly(true);
 
         console.log('ace', ace, editor);
         
