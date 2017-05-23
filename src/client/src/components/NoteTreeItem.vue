@@ -1,12 +1,12 @@
 <template>
   <li>
     <div
-      :class="{bold: expandable}"
+      :class="{bold: isFolder}"
       @click="toggle">
       {{model.name}}
-      <span v-if="expandable">[{{open ? '-' : '+'}}]</span>
+      <span v-if="isFolder">[{{open ? '-' : '+'}}]</span>
     </div>
-    <ul v-show="open" v-if="expandable">
+    <ul v-show="open" v-if="isFolder">
       <CodeTreeItem
         class="item"
         v-for="model in model.items"
@@ -25,7 +25,7 @@ export default {
         }
     },
     computed: {
-        expandable: function () {
+        isFolder: function () {
             return this.model.items && this.model.items.length
         }
     },
@@ -34,7 +34,7 @@ export default {
     },
     methods: {
         toggle: function () {
-            if (this.expandable) {
+            if (this.isFolder) {
                 this.open = !this.open
             }
             else {
@@ -43,7 +43,7 @@ export default {
             }
         }
         // ,changeType: function () {
-        //     if (!this.expandable) {
+        //     if (!this.isFolder) {
         //         Vue.set(this.model, 'children', [])
         //         this.addChild()
         //         this.open = true

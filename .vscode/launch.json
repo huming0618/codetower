@@ -29,7 +29,7 @@
             "cwd": "${workspaceRoot}/src/client",
             "restart": true,
             "port": 5858,
-            "console": "internalConsole",
+            "console": "integratedTerminal",
             "internalConsoleOptions": "neverOpen"
         },
     ]
