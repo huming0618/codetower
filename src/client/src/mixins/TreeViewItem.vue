@@ -7,18 +7,19 @@
       <span v-if="expandable">[{{open ? '-' : '+'}}]</span>
     </div>
     <ul v-show="open" v-if="expandable">
-      <CodeTreeItem
+      <TreeViewItem
         class="item"
-        v-for="model in model.items"
-        :model="model">
-      </CodeTreeItem>
+        v-for="modelItem in model.items"
+        :model="modelItem"
+        :treeItemOnClick="treeItemOnClick">
+      </TreeViewItem>
     </ul>
   </li>
 </template>
 
 <script>
 export default {
-    name: 'CodeTreeItem',
+    name: 'TreeViewItem',
     data () {
         return {
             open: false
@@ -30,7 +31,8 @@ export default {
         }
     },
     props: {
-        model: Object
+        model: Object,
+        treeItemOnClick: Function
     },
     methods: {
         toggle: function () {
@@ -38,9 +40,10 @@ export default {
                 this.open = !this.open
             }
             else {
-                console.log(this.model.path);
-                window.bus.$emit('source-path-selected', this.model.path);
+                //console.log(this.model.path);
+                //window.bus.$emit('source-path-selected', this.model.path);
             }
+            this.treeItemOnClick(this.model);
         }
         // ,changeType: function () {
         //     if (!this.expandable) {

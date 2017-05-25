@@ -2,75 +2,38 @@
 
 <template>
     <ul id="demo">
-        <CodeTreeItem
+        <TreeViewItem
             class="item"
+            :treeItemOnClick="treeItemOnClick"
             :model="treeData">
-        </CodeTreeItem>
+        </TreeViewItem>
     </ul>
 </template>
 
 <script>
-import CodeTreeItem from './CodeTreeItem.vue';
+import TreeViewItem from './TreeViewItem.vue';
 import Vue from 'vue';
-import Rx from 'rxjs/Rx';
-import VueRx from 'vue-rx';
-
-Vue.use(VueRx,Rx);
-
-const getTreeCode = new Promise((resolve,reject)=>{
-    fetch('http://localhost:3000/code/codetower')
-        .then(resp=>{
-            return resp.json();
-        })
-        .then(data=>{
-            //console.log('data', data);
-            resolve(data);
-        })
-});
-
-// Rx.Observable.fromPromise(getTreeCode).subscribe(x=>{
-//     console.log('from getTreeCode', x);
-// })
-// const getTreeCode = function(){
-//     return fetch('http://localhost:3000/code/codetower')
-//         // .then(response=>{
-//         //     //console.log(response);
-//         //     return response.json();
-//         // });
-// }
-
-// getTreeCode().then(x=>console.log(x));
-
-const empty = {
-    name: "",
-    items: []
-}
-
 
             
 export default {
-    name: 'CodeTree',
     components: {
-        "CodeTreeItem": CodeTreeItem
+        "TreeViewItem": TreeViewItem
     },
-    subscriptions: function(){
+    data () {
         return {
-            treeData: Rx.Observable.fromPromise(getTreeCode).startWith(empty)
+            treeData: {
+                name: "",
+                items: []
+            }
         }
-    }, 
-    // data () {
-    //     return {
-    //         treeData: {
-    //             items: [],
-    //             "name": ""
-    //         }
-    //     }
-    // },
+    },
     props: {
         model: Object
     },
     methods: {
-
+        treeItemOnClick: function(data){
+            console.log('treeItemOnClick', 'data', data);
+        }
     }
 }
 </script>

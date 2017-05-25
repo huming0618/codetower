@@ -1,16 +1,6 @@
 
-
-<template>
-    <ul id="demo">
-        <CodeTreeItem
-            class="item"
-            :model="treeData">
-        </CodeTreeItem>
-    </ul>
-</template>
-
 <script>
-import CodeTreeItem from './CodeTreeItem.vue';
+import TreeView from '../mixins/TreeView.vue';
 import Vue from 'vue';
 import Rx from 'rxjs/Rx';
 import VueRx from 'vue-rx';
@@ -50,9 +40,10 @@ const empty = {
             
 export default {
     name: 'CodeTree',
-    components: {
-        "CodeTreeItem": CodeTreeItem
-    },
+    mixins: [TreeView],
+    // components: {
+    //     "CodeTreeItem": CodeTreeItem
+    // },
     subscriptions: function(){
         return {
             treeData: Rx.Observable.fromPromise(getTreeCode).startWith(empty)
@@ -70,27 +61,13 @@ export default {
         model: Object
     },
     methods: {
-
+        treeItemOnClick: function(node){
+            console.log('node', node);
+            if (node.type === 'file'){
+                window.bus.$emit('source-file-selected', node.path);
+            }
+            
+        }
     }
 }
 </script>
-
-<!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped>
-body {
-  font-family: Menlo, Consolas, monospace;
-  color: #444;
-}
-.item {
-  cursor: pointer;
-  text-align: left;
-}
-.bold {
-  font-weight: bold;
-}
-ul {
-  padding-left: 1em;
-  line-height: 1.5em;
-  list-style-type: dot;
-}
-</style>

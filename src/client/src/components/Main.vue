@@ -50,7 +50,7 @@ export default {
     mounted: function(){
         const vm = this;
 
-        window.bus.$on('source-path-selected', function(path){
+        window.bus.$on('source-file-selected', function(path){
             // console.log('path-selected', path);
             //vm.sourceCode = "test";
             vm.updateSourceCode(path);
