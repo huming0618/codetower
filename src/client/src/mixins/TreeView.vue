@@ -5,6 +5,7 @@
         <TreeViewItem
             class="item"
             :treeItemOnClick="treeItemOnClick"
+            :editable="editable"
             :model="treeData">
         </TreeViewItem>
     </ul>
@@ -24,11 +25,13 @@ export default {
             treeData: {
                 name: "",
                 items: []
-            }
+            },
+            editable: true
         }
     },
     props: {
-        model: Object
+        model: Object,
+        editable: Boolean
     },
     methods: {
         treeItemOnClick: function(data){

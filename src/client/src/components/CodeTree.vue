@@ -18,19 +18,6 @@ const getTreeCode = new Promise((resolve,reject)=>{
         })
 });
 
-// Rx.Observable.fromPromise(getTreeCode).subscribe(x=>{
-//     console.log('from getTreeCode', x);
-// })
-// const getTreeCode = function(){
-//     return fetch('http://localhost:3000/code/codetower')
-//         // .then(response=>{
-//         //     //console.log(response);
-//         //     return response.json();
-//         // });
-// }
-
-// getTreeCode().then(x=>console.log(x));
-
 const empty = {
     name: "",
     items: []
@@ -49,16 +36,10 @@ export default {
             treeData: Rx.Observable.fromPromise(getTreeCode).startWith(empty)
         }
     }, 
-    // data () {
-    //     return {
-    //         treeData: {
-    //             items: [],
-    //             "name": ""
-    //         }
-    //     }
-    // },
-    props: {
-        model: Object
+    data () {
+        return {
+            editable: false
+        }
     },
     methods: {
         treeItemOnClick: function(node){

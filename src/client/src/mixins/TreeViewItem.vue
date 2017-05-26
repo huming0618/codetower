@@ -1,16 +1,18 @@
 <template>
   <li>
     <div
-      :class="{bold: expandable}"
+      :class="{expandable: expandable}"
       @click="toggle">
       {{model.name}}
       <span v-if="expandable">[{{open ? '-' : '+'}}]</span>
+      <input type="input" length=20 v-if="editable" style="display:none"/>
     </div>
     <ul v-show="open" v-if="expandable">
       <TreeViewItem
         class="item"
         v-for="modelItem in model.items"
         :model="modelItem"
+        :editable="editable"
         :treeItemOnClick="treeItemOnClick">
       </TreeViewItem>
     </ul>
@@ -32,10 +34,12 @@ export default {
     },
     props: {
         model: Object,
+        editable: Boolean,
         treeItemOnClick: Function
     },
     methods: {
         toggle: function () {
+            console.log('toggle');
             if (this.expandable) {
                 this.open = !this.open
             }
@@ -63,17 +67,9 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-body {
-  font-family: Menlo, Consolas, monospace;
-  color: #444;
-}
-.bold {
+.expandable {
+  color: #4682b4;
   font-weight: bold;
   text-align: left;
-}
-ul {
-  padding-left: 1em;
-  line-height: 1.5em;
-  list-style-type: dot;
 }
 </style>
