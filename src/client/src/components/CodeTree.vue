@@ -38,7 +38,7 @@ export default {
     }, 
     data () {
         return {
-            editable: false
+            editable: true
         }
     },
     methods: {

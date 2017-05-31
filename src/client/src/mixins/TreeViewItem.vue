@@ -3,9 +3,9 @@
     <div
       :class="{expandable: expandable}"
       @click="toggle">
-      {{model.name}}
+      <span v-if="!editable">{{model.name}}</span>
+      <input v-if="editable" type="input" length=20  :value="model.name"/>
       <span v-if="expandable">[{{open ? '-' : '+'}}]</span>
-      <input type="input" length=20 v-if="editable" style="display:none"/>
     </div>
     <ul v-show="open" v-if="expandable">
       <TreeViewItem
