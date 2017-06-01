@@ -9,7 +9,7 @@
             <CodeEditor :value="editorCode"></CodeEditor>
         </div>
         <div class="right col-item">
-
+            <NoteView></NoteView>
         </div>
     </div>
 
@@ -17,6 +17,7 @@
 
 <script>
 import SourceView from './SourceView.vue';
+import NoteView from './NoteView.vue';
 import CodeEditor from './CodeEditor.vue';
             
 export default {
@@ -24,7 +25,8 @@ export default {
 
     components: {
         "SourceView": SourceView,
-        "CodeEditor": CodeEditor
+        "CodeEditor": CodeEditor,
+        "NoteView": NoteView
     },
 
     data () {

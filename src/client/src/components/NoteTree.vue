@@ -26,7 +26,7 @@ const empty = {
 
             
 export default {
-    name: 'NoteTree',
+    name: 'CodeTree',
     mixins: [TreeView],
     // components: {
     //     "CodeTreeItem": CodeTreeItem
@@ -36,23 +36,17 @@ export default {
             treeData: Rx.Observable.fromPromise(getTreeCode).startWith(empty)
         }
     }, 
-    // data () {
-    //     return {
-    //         treeData: {
-    //             items: [],
-    //             "name": ""
-    //         }
-    //     }
-    // },
-    props: {
-        model: Object
+    data () {
+        return {
+            editable: true
+        }
     },
     methods: {
         treeItemOnClick: function(node){
             console.log('node', node);
-            if (node.type === 'file'){
-                window.bus.$emit('source-file-selected', node.path);
-            }
+            // if (node.type === 'file'){
+            //     window.bus.$emit('source-file-selected', node.path);
+            // }
             
         }
     }

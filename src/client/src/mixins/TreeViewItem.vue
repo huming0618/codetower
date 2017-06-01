@@ -15,6 +15,7 @@
         :editable="editable"
         :treeItemOnClick="treeItemOnClick">
       </TreeViewItem>
+      <li v-if="editable" class="add" @click="addChild">+</li>
     </ul>
   </li>
 </template>
@@ -56,11 +57,11 @@ export default {
         //         this.open = true
         //     }
         // }
-        // ,addChild: function () {
-        //     this.model.children.push({
-        //         name: 'new stuff'
-        //     })
-        // }
+        ,addChild: function () {
+            this.model.items.push({
+                name: ''
+            })
+        }
     }
 }
 </script>
