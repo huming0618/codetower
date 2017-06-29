@@ -1,32 +1,15 @@
-
-
 <template>
-    <div id="main">
-        <div class="left col-item">
-            <md-tabs>
-                <md-tab id="source-tab" md-label="Source">
-                    <SourceView></SourceView>
-                </md-tab>
-                <md-tab id="note-tab" md-label="Note">
-                   <NoteView></NoteView>
-                </md-tab>
-            </md-tabs>
-        </div>
-        <div class="middle col-item">
-            <CodeEditor :value="editorCode"></CodeEditor>
-        </div>
-        <div class="right col-item">
-            
-        </div>
+    <ul>
+        <li></li>
+        <li></li>
+        <li></li>
+    </ul>
+    <div>
+        
     </div>
-
 </template>
 
 <script>
-import SourceView from './SourceView.vue';
-import NoteView from './NoteView.vue';
-import CodeEditor from './CodeEditor.vue';
-            
 export default {
     name: 'Main',
 
@@ -78,34 +61,4 @@ export default {
 </script>
 
 <style scoped>
-#main{
-    width: 100%;
-    min-height: 800px;
-
-    display: -webkit-flex;
-    -webkit-flex-direction: row;
-
-    display: flex;
-    flex-direction: row;
-}
-
-.col-item{
-    -webkit-flex: 1 1 auto;
-    flex: 1 1 auto;
-    width: 30px;
-}
-
-.left {
-    background: #F8F8F8;
-
-}
-
-.middle{
-    background: gray;
-    flex-grow: 2;
-}
-
-.right{
-    background: #fff;
-}
 </style>
