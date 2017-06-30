@@ -63,7 +63,7 @@ export default {
         editor.getSession().setMode('ace/mode/'+lang);
         editor.setTheme('ace/theme/'+theme);
         editor.setValue(vm.value, 1);
-        editor.setFontSize(12);
+        editor.setFontSize(18);
         editor.setReadOnly(true);
 
         console.log('ace', ace, editor);

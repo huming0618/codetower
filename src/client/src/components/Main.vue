@@ -13,10 +13,27 @@
             </md-tabs>
         </div>
         <div class="middle col-item">
+            <md-toolbar  class="md-dense">
+                <md-button class="md-icon-button">
+                    <md-icon>menu</md-icon>
+                </md-button>
+                <h2 class="md-title" style="flex: 1">Code</h2>
+                <md-button class="md-icon-button">
+                    
+                </md-button>
+            </md-toolbar>
             <CodeEditor :value="editorCode"></CodeEditor>
         </div>
         <div class="right col-item">
-            
+            <md-toolbar  class="md-dense">
+                <md-button class="md-icon-button">
+     
+                </md-button>
+
+                <md-button class="md-icon-button">
+             
+                </md-button>
+            </md-toolbar>
         </div>
     </div>
 
