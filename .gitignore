@@ -1,8 +1,9 @@
-**/node_modules
-node_modules
-dist
-.tmp
-.sass-cache
-bower_components
-test/bower_components
-config.js
+.DS_Store
+node_modules/
+dist/
+npm-debug.log
+yarn-error.log
+test/unit/coverage
+test/e2e/reports
+selenium-debug.log
+npm-debug.log.*
