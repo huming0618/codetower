@@ -40,10 +40,12 @@
 </template>
 
 <script>
+
 import SourceView from './SourceView.vue';
 import NoteView from './NoteView.vue';
 import CodeEditor from './CodeEditor.vue';
-            
+import axios from 'axios'
+
 export default {
     name: 'Main',
 
@@ -73,8 +75,31 @@ export default {
         }
     },
 
-    mounted: function(){
+    mounted: async ()=>{
         const vm = this;
+
+        // axios
+        //     .get('https://oss.navercorp.com/api/v3', {
+        //         auth: {
+        //             username:'huqiming',
+        //             password:'8a795508ef9a8b190db4314d8e3a4bd821dd8f95'
+        //         }
+        //     })
+        //     .then(resp=>console.log(resp))
+
+        const auth = {
+                        username:'huqiming',
+                        password:'8a795508ef9a8b190db4314d8e3a4bd821dd8f95'
+                    }
+        
+        // let result = await axios.get('https://oss.navercorp.com/api/v3/repos/GWorks-Service/webtalk/commits', { auth })
+        // const commits = result.data
+
+
+        // //?recursive=1
+        // result = await axios.get(`https://oss.navercorp.com/api/v3/repos/GWorks-Service/webtalk/git/trees/${commits[0].sha}`, { auth })
+        // const tree = result.data
+        // console.log('tree', tree)
 
         window.bus.$on('source-file-selected', function(path){
             // console.log('path-selected', path);
