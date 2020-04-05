@@ -1,0 +1,12 @@
+@import "reset.scss";
+
+body {
+    background: #383636
+}
+
+#app {
+    width: 100%;
+    min-height: 600px;
+    display: flex;
+    justify-content: flex-start;
+}

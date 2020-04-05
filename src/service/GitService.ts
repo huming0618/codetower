@@ -1,5 +1,6 @@
 import { Observable } from 'rxjs';
 
+const axios = require('axios')
 const git = require('isomorphic-git')
 const http = require('isomorphic-git/http/web')
 const LightningFS = require('@isomorphic-git/lightning-fs')
@@ -18,106 +19,57 @@ const sortEntry = (a: string, b: string) => {
     return a[0].toLowerCase() > b[0].toLowerCase() ? 1 : -1
 }
 
-export default class GitService {
-    dir: string = ''
-    constructor(dirname: string) {
-        this.dir = dirname
-    }
+const auth = {
+    username: 'huqiming',
+    password: '8a795508ef9a8b190db4314d8e3a4bd821dd8f95'
+}
 
-    init(): Promise<any> {
-        console.log('to init')
-        return git.clone({
-            fs,
-            http,
-            dir: this.dir,
-            url: 'https://github.com/facebook/react',
-            corsProxy: 'https://cors.isomorphic-git.org'
-        })
+type NodeEntry = {
+    path: string,
+    mode: string,
+    type: "blob" | "tree",
+    sha: string,
+    size?: number,
+    url: string
+}
+
+export default class GitService {
+    baseURL: string
+    commits: any
+    constructor(baseURL: string) {
+        this.baseURL = baseURL
     }
 
     static joinPath(...items: Array<string>) {
         return items.join('/')
     }
 
+    async init(): Promise<any> {
+        let resp = await axios.get('https://oss.navercorp.com/api/v3/repos/GWorks-Service/webtalk/commits', { auth })
+        this.commits = resp.data
+        return this
+    }
+
+
+
     //https://blog.csdn.net/weixin_44704691/article/details/102639587
 
-    getFileList$(): Observable<FileItem> {
-        const baseDir = this.dir
+    async getFileList() {
+        const commits = this.commits
+        const resp = await axios.get(`https://oss.navercorp.com/api/v3/repos/GWorks-Service/webtalk/git/trees/${commits[0].sha}`, { auth })
+        const tree = resp.data.tree
+        console.log('tree', tree)
+        const result = {
+            name: "",
+            items: tree.map((x: any) => { return { name: x.path, type: x.type } }).sort((a: any, b: any) => a.type > b.type)
+        }
+        // console.log('result', result)
 
-        console.log('getFileList$')
-
-
-        return new Observable((observer: any) => {
-            const read = (theDirPath: string) => {
-                pfs.readdir(theDirPath).then((entryList: Array<string>) => {
-                    entryList.sort(sortEntry).forEach(async (item: string) => {
-                        const itemPath = GitService.joinPath(theDirPath, item)
-                        const stat = await pfs.stat(itemPath)
-
-                        if (stat.type == 'dir') {
-                            // console.log('dir', stat, theDirPath, itemPath)
-                            read(itemPath)
-                        }
-                        else {
-                            // console.log('file', stat, itemPath)
-                            observer.next({
-                                dir: theDirPath,
-                                name: item,
-                                path: itemPath,
-                                content: () => {
-                                    return pfs.readFile(itemPath, {
-                                        encoding: 'utf8'
-                                    })
-                                }
-                            })
-                        }
-                    })
-                })
-            }
-
-            read(baseDir)
-        });
+        const srcItem = tree.filter((x: any) => x.path == 'src')[0]
+        const resp1 = await axios.get(srcItem.url, { auth })
+        const tree1 = resp1.data.tree
+        console.log('result.srcItem', tree1)
+        return result
     }
 
-    async getFileList(ignorePaths: Array<string> = []): Promise<Array<any>> {
-
-
-        const result: Array<FileItem> = []
-        const baseDir = this.dir
-        const queue: Array<string> = []
-        queue.push(baseDir)
-
-        return new Promise(async (resolve) => {
-            while (queue.length) {
-                console.log('queue', queue)
-                let dirPath = queue.shift()
-                if (queue.length === 0) {
-                    resolve(result)
-                }
-                const entryList = await pfs.readdir(dirPath);
-                entryList.forEach(async (item: string) => {
-                    const itemPath = GitService.joinPath(dirPath, item)
-                    const stat = await pfs.stat(itemPath)
-
-                    if (stat.type == 'dir') {
-                        console.log('dir', stat, dirPath, itemPath)
-                        queue.push(itemPath)
-                    }
-                    else {
-                        console.log('file', stat, itemPath)
-                        result.push({
-                            dir: dirPath,
-                            name: item,
-                            path: itemPath,
-                            content: () => {
-                                return pfs.readFile(itemPath, {
-                                    encoding: 'utf8'
-                                })
-                            }
-                        })
-                    }
-                })
-            }
-        })
-    }
 }
