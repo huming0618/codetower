@@ -4,17 +4,18 @@
 // const ApplyReward = () => import("@/mytoken/components/ApplyReward")
 // import LoginPage from './login'
 const createProject = () => import("../project/create")
+const viewProject = () => import("../project/view")
 
 const routes = [{
         path: '/',
         name: 'createProject',
         component: createProject
     },
-    // {
-    //     path: '/newtask',
-    //     name: 'NewTask',
-    //     component: Task
-    // },
+    {
+        path: '/project/auth',
+        name: 'viewProject',
+        component: viewProject
+    },
     // {
     //     path: '/applyreward',
     //     name: 'ApplyReward',

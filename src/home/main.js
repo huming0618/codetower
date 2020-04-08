@@ -26,21 +26,21 @@ new Vue({
     router
 });
 
-const dir = '/test-react'
+// const dir = '/test-react'
 
-const gitService = new GitService(dir)
+// const gitService = new GitService(dir)
 
-gitService.init().then(async () => {
-    const result = await gitService.getFileList()
-    console.log('result', result)
-    // const files = await gitService.getFileList()
-    // console.log('gitService.files', files)
+// gitService.init().then(async () => {
+//     const result = await gitService.getFileList()
+//     console.log('result', result)
+//     // const files = await gitService.getFileList()
+//     // console.log('gitService.files', files)
 
-    // gitService.getFileList$().subscribe(x => {
-    //     console.log('file item', x)
-    // })
-    //console.log('init done', result)
-})
+//     // gitService.getFileList$().subscribe(x => {
+//     //     console.log('file item', x)
+//     // })
+//     //console.log('init done', result)
+// })
 
 // git.clone({
 //     fs,

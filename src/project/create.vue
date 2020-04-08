@@ -4,8 +4,8 @@
       <h1>Choose the repository</h1>
     </div>
     <div class="form__wrapper">
-      <form>
-        <input type="text" name="name" />
+      <form @submit="onSubmit">
+        <input type="text" name="name" autofocus v-model="repo" />
         <button type="submit">Create</button>
       </form>
     </div>
@@ -42,6 +42,12 @@ form {
 form input {
   border: none;
   flex-grow: 1;
+  padding-left: 12px;
+}
+
+form input:focus {
+  border: none;
+  outline: 0;
 }
 
 form button {
@@ -49,6 +55,7 @@ form button {
   background: #46ca7f;
   color: #fff;
   width: 24%;
+  cursor: pointer;
 }
 </style>
 <script>
@@ -58,23 +65,40 @@ form button {
 // import Dashboard from "@/home/components/Dashboard";
 // import MySummary from "@/mytoken/components/Summary";
 
-// export default {
-//   components: {
-//     AppHeader,
-//     MySummary,
-//     Dashboard
-//   },
-//   methods: {
-//     createNewTask: function(item) {
-//       console.log("test", this.$router);
-//       this.$router.push({ name: "NewTask" });
-//     }
-//   },
+export default {
+  // components: {
+  //   AppHeader,
+  //   MySummary,
+  //   Dashboard
+  // },
 
-//   mounted() {
-//     // wallet.init().then(result => {
-//     //   console.log("my.wallet", wallet);
-//     // });
-//   }
-// };
+  data() {
+    return {
+      repo: ""
+    };
+  },
+
+  methods: {
+    onSubmit: function(e) {
+      e.preventDefault();
+      const link = document.createElement("a");
+      link.href = this.repo;
+
+      console.log("link", link, link.host);
+      const host = link.host;
+      if (host === "github.com") {
+        const clientId = "95512368c4d39bb1a507";
+        const redirectUrl = `http://localhost:8000/project/auth?host=${host}&repo=${this.repo}`;
+        window.location = `https://github.com/login/oauth/authorize?client_id=${clientId}&redirect_uri=${redirectUrl}`;
+      }
+      return false;
+    }
+  },
+
+  mounted() {
+    // wallet.init().then(result => {
+    //   console.log("my.wallet", wallet);
+    // });
+  }
+};
 </script>
