@@ -31,6 +31,41 @@ module.exports = env => {
             new FriendlyErrorsPlugin()
         ],
         devServer: {
+            proxy: {
+                '/r': {
+                    onProxyReq: (proxyReq, req, res) => {
+                        // proxyReq.setHeader('origin', null);
+                        // console.log(proxyReq)
+                    },
+                    onProxyRes: (proxyRes, req, res) => {
+                        console.log(proxyRes.statusCode)
+                        // console.log(proxyReq)
+                    },
+                    onError: (err) => {
+                        console.log(err)
+                    },
+
+                    // router: (req) => {
+                    //     //console.log('router', req)
+                    //     return {
+                    //         protocol: 'https:', // The : is required
+                    //         host: 'github.com',
+                    //         port: 443
+                    //     };
+                    // },
+
+                    target: 'https://www.github.com/',
+                    pathRewrite: {
+                        '^/r/github.com': ''
+                    },
+                    headers: {
+                        'host': 'www.github.com',
+                        'origin': null
+                    },
+                    changeOrigin: true, // target是域名的话，需要这个参数，
+                    secure: true, // 设置支持https协议的代理
+                }
+            },
             compress: true,
             historyApiFallback: true,
             hot: true,
@@ -38,7 +73,7 @@ module.exports = env => {
             overlay: true,
             port: port,
             stats: {
-                normal: true
+                verbose: true
             }
         }
     });

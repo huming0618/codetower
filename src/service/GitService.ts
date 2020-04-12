@@ -56,8 +56,27 @@ export default class GitService {
         //     client_secret: clientSecret,
         //     code: code
         // }
+
+        // const iframe = document.createElement('iframe')
+        // iframe.name = 'temp_token'
+        // document.body.appendChild(iframe)
+
+        // const form = document.createElement('form')
+        // document.body.appendChild(form)
+
+
+        // form.enctype = 'text/plain'
+        // form.method = 'POST'
+        // form.target = 'temp_token'
+        // form.action = `${this.baseURL}/login/oauth/access_token?` +
+        //     `client_id=${clientId}&` +
+        //     `client_secret=${clientSecret}&` +
+        //     `code=${code}` +
+        //     `&redirect_uri=http://localhost:8000`
+        // form.submit()
         const option = { headers: { 'Accept': 'application/json' } }
-        let resp = await this.HTTPClient.post('/login/oauth/access_token?' +
+        //`/r/${this.baseURL.replace(/^https?:\/\//i, '')}/login/oauth/access_token?
+        let resp = await axios.post(`http://localhost:7000/accesstoken?` +
             `client_id=${clientId}&` +
             `client_secret=${clientSecret}&` +
             `code=${code}`, null, option)
