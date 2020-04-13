@@ -47,7 +47,14 @@ export default {
     const params = new URLSearchParams(window.location.search);
     const authCode = params.get("code");
     const repo = params.get("repo");
-    const host = params.get("host");
+
+    const link = document.createElement("a");
+    link.href = repo;
+
+    console.log("link", link, link.host, link.pathname);
+
+    const host = link.host;
+
     console.log("view project", authCode, repo);
     const service = await GitService.create({
       baseURL: `https://${host}`,

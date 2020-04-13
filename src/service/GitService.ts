@@ -31,10 +31,13 @@ type NodeEntry = {
 
 export default class GitService {
     baseURL: string
+    host: string
     HTTPClient: any
+    apiToken: string
 
     constructor(baseURL: string) {
         this.baseURL = baseURL
+        this.host = this.baseURL.replace(/^https?:\/\//i, '')
         this.HTTPClient = axios.create({
             baseURL: baseURL,
             timeout: 10000
@@ -76,15 +79,13 @@ export default class GitService {
         // form.submit()
         const option = { headers: { 'Accept': 'application/json' } }
         //`/r/${this.baseURL.replace(/^https?:\/\//i, '')}/login/oauth/access_token?
-        let resp = await axios.post(`http://localhost:7000/accesstoken?` +
-            `client_id=${clientId}&` +
-            `client_secret=${clientSecret}&` +
-            `code=${code}`, null, option)
+        const url = `http://localhost:7000/accesstoken/${this.host}?client_id=${clientId}&client_secret=${clientSecret}&code=${code}`
+        let resp = await axios.post(url, null, option)
         if (resp.data) {
-            console.log('git service init', resp.data)
-            return this
+            this.apiToken = resp.data['access_token']
+            console.log('apiToken', this.apiToken)
         }
-        return null
+        return this
     }
 
     static joinPath(...items: Array<string>) {
@@ -98,6 +99,10 @@ export default class GitService {
     // }
 
 
+
+    async getCommits() {
+        const resp = await axios.get(`https://example.com/api/v3/repos/GWorks-Service/webtalk/git/trees/${commits[0].sha}`, { auth })
+    }
 
     //https://blog.csdn.net/weixin_44704691/article/details/102639587
 

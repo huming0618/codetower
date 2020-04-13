@@ -83,12 +83,11 @@ export default {
       e.preventDefault();
       const link = document.createElement("a");
       link.href = this.repo;
-
-      console.log("link", link, link.host);
       const host = link.host;
       if (host === "github.com") {
+        const repoName = link.pathname.replace(/^\//i, "");
         const clientId = "95512368c4d39bb1a507";
-        const redirectUrl = `http://localhost:8000/project/auth?host=${host}&repo=${this.repo}`;
+        const redirectUrl = `http://localhost:8000/project/auth?repo=${this.repo}`;
         window.location = `https://github.com/login/oauth/authorize?client_id=${clientId}&redirect_uri=${redirectUrl}`;
       }
       return false;
