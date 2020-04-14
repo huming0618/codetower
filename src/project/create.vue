@@ -88,7 +88,10 @@ export default {
         const repoName = link.pathname.replace(/^\//i, "");
         const clientId = "95512368c4d39bb1a507";
         const redirectUrl = `http://localhost:8000/project/auth?repo=${this.repo}`;
-        window.location = `https://github.com/login/oauth/authorize?client_id=${clientId}&redirect_uri=${redirectUrl}`;
+        const authScope = encodeURIComponent(
+          "user public_repo repo repo_deployment repo:status read:repo_hook read:org read:public_key read:gpg_key"
+        );
+        window.location = `https://github.com/login/oauth/authorize?client_id=${clientId}&redirect_uri=${redirectUrl}&scope=${authScope}`;
       }
       return false;
     }

@@ -88,6 +88,21 @@ export default class GitService {
         return this
     }
 
+    async getCommits(owner: string, repo: string, branch: string = 'master') {
+        const resp = await axios.post('https://api.github.com/graphql',
+            { query: `query { viewer { login }}` },
+            {
+                headers: {
+                    'Authorization': `bearer ${this.apiToken}`
+                }
+            }
+        )
+
+
+        console.log('getCommits', resp.data)
+
+
+    }
     static joinPath(...items: Array<string>) {
         return items.join('/')
     }
@@ -100,9 +115,9 @@ export default class GitService {
 
 
 
-    async getCommits() {
-        const resp = await axios.get(`https://example.com/api/v3/repos/GWorks-Service/webtalk/git/trees/${commits[0].sha}`, { auth })
-    }
+    // async getCommits() {
+    //     const resp = await axios.get(`https://example.com/api/v3/repos/GWorks-Service/webtalk/git/trees/${commits[0].sha}`)
+    // }
 
     //https://blog.csdn.net/weixin_44704691/article/details/102639587
 

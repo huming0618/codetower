@@ -62,6 +62,8 @@ export default {
       clientSecret: "ba902651559c7d7532bab1a64ac707d7b210a4bd",
       authCode: authCode
     });
+
+    service.getCommits();
   }
 };
 </script>
