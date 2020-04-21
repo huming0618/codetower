@@ -1,12 +1,32 @@
 import { Observable } from 'rxjs';
 
 import axios, { AxiosInstance, AxiosRequestConfig, AxiosResponse } from "axios";
-const git = require('isomorphic-git')
-const http = require('isomorphic-git/http/web')
-const LightningFS = require('@isomorphic-git/lightning-fs')
 
-const fs = new LightningFS('fs')
-const pfs = fs.promises
+import gql from 'graphql-tag';
+
+const userFragment = gql`
+  fragment User_user on User {
+    firstName
+    lastName
+  }`
+
+const query = gql`
+  {
+    user(id: 5) {
+      ...User_user
+    }
+  }
+  ${userFragment}
+`
+
+console.log('query', query, query.loc.source.body)
+// console.log(query.definitions.bod)
+// const git = require('isomorphic-git')
+// const http = require('isomorphic-git/http/web')
+// const LightningFS = require('@isomorphic-git/lightning-fs')
+
+// const fs = new LightningFS('fs')
+// const pfs = fs.promises
 
 type FileItem = {
     name: string,
@@ -71,11 +91,11 @@ export default class GitService {
         // form.enctype = 'text/plain'
         // form.method = 'POST'
         // form.target = 'temp_token'
-        // form.action = `${this.baseURL}/login/oauth/access_token?` +
-        //     `client_id=${clientId}&` +
-        //     `client_secret=${clientSecret}&` +
-        //     `code=${code}` +
-        //     `&redirect_uri=http://localhost:8000`
+        // form.action = `${ this.baseURL }/login/oauth / access_token ? ` +
+        //     `client_id = ${ clientId }& ` +
+        //     `client_secret = ${ clientSecret }& ` +
+        //     `code = ${ code } ` +
+        //     `& redirect_uri=http://localhost:8000`
         // form.submit()
         const option = { headers: { 'Accept': 'application/json' } }
         //`/r/${this.baseURL.replace(/^https?:\/\//i, '')}/login/oauth/access_token?
