@@ -12,7 +12,7 @@ const routes = [{
         component: createProject
     },
     {
-        path: '/project/auth/',
+        path: '/project/view/*',
         name: 'viewProject',
         component: viewProject
     },

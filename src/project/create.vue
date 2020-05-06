@@ -65,6 +65,8 @@ form button {
 // import Dashboard from "@/home/components/Dashboard";
 // import MySummary from "@/mytoken/components/Summary";
 
+import URLService from "../service/URLService";
+
 export default {
   // components: {
   //   AppHeader,
@@ -81,13 +83,14 @@ export default {
   methods: {
     onSubmit: function(e) {
       e.preventDefault();
-      const link = document.createElement("a");
-      link.href = this.repo;
-      const host = link.host;
-      if (host === "github.com") {
-        const repoName = link.pathname.replace(/^\//i, "");
+      // const link = document.createElement("a");
+      // link.href = this.repo;
+      const repoInfo = URLService.getRepoInfo(this.repo);
+
+      if (repoInfo.host === "github.com") {
+        const repoName = repoInfo.repo;
         const clientId = "95512368c4d39bb1a507";
-        const redirectUrl = `http://localhost:8000/project/auth?repo=${this.repo}`;
+        const redirectUrl = `http://localhost:8000/project/view/${repoInfo.host}/${repoInfo.owner}/${repoInfo.repo}`;
         const authScope = encodeURIComponent(
           "user public_repo repo repo_deployment repo:status read:repo_hook read:org read:public_key read:gpg_key"
         );

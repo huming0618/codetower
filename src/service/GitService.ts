@@ -108,21 +108,73 @@ export default class GitService {
         return this
     }
 
-    async getCommits(owner: string, repo: string, branch: string = 'master') {
+    async getBranchList(owner: string, repo: string) {
+        const query = gql`{
+                        repository(owner: "${owner}", name: "${repo}") {
+                            refs(first: 100, refPrefix: "refs/heads/") {
+                                nodes {
+                                    name
+                                    target {
+                                        ... on Commit {
+                                            oid
+                                            committedDate
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }`
+
         const resp = await axios.post('https://api.github.com/graphql',
-            { query: `query { viewer { login }}` },
+            { query: query.loc.source.body },
             {
                 headers: {
                     'Authorization': `bearer ${this.apiToken}`
                 }
             }
         )
-
-
-        console.log('getCommits', resp.data)
-
-
+        return resp.data
     }
+
+    async getCommitList(owner: string, repo: string, branch: string = 'master') {
+        const query = gql`{
+                            repository(name: "${repo}", owner: "${owner}") {
+                                object(expression: "${branch}:") {
+                                    ... on Tree {
+                                        entries {
+                                            name,
+                                            type
+                                
+                                        }
+                                    }
+                                }
+                            }
+                        }`
+        // const query = gql`{
+        //                     repository(name: "${repo}", owner: "${owner}") {
+        //                         ref(qualifiedName: "${branch}") {
+        //                             target {
+        //                                 ... on Commit {
+        //                                     commitUrl
+        //                                     id
+        //                                     commitResourcePath
+        //                                 }
+        //                             }
+        //                         }
+        //                     }
+        //                 }`
+
+        const resp = await axios.post('https://api.github.com/graphql',
+            { query: query.loc.source.body },
+            {
+                headers: {
+                    'Authorization': `bearer ${this.apiToken}`
+                }
+            }
+        )
+        return resp.data
+    }
+
     static joinPath(...items: Array<string>) {
         return items.join('/')
     }

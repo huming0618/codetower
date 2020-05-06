@@ -22,6 +22,7 @@
 </style>
 <script>
 import GitService from "../service/GitService";
+import URLService from "../service/URLService";
 // import wallet from "@/common/wallet";
 
 // import AppHeader from "@/home/components/AppHeader";
@@ -46,24 +47,26 @@ export default {
   async mounted() {
     const params = new URLSearchParams(window.location.search);
     const authCode = params.get("code");
-    const repo = params.get("repo");
+    // const repo = params.get("repo");
+    const repoInfo = URLService.getRepoInfoFromPathName(
+      window.location.pathname.replace(/^\/project\/view\//i, "")
+    );
 
-    const link = document.createElement("a");
-    link.href = repo;
-
-    console.log("link", link, link.host, link.pathname);
-
-    const host = link.host;
-
-    console.log("view project", authCode, repo);
+    console.log("view project", authCode, repoInfo);
     const service = await GitService.create({
-      baseURL: `https://${host}`,
+      baseURL: `https://${repoInfo.host}`,
       clientId: "95512368c4d39bb1a507",
       clientSecret: "ba902651559c7d7532bab1a64ac707d7b210a4bd",
       authCode: authCode
     });
 
-    service.getCommits();
+    const branchList = await service.getBranchList(
+      repoInfo.owner,
+      repoInfo.repo
+    );
+    console.log("branches", branchList);
+
+    const commits = await service.getCommitList(repoInfo.owner, repoInfo.repo);
   }
 };
 </script>
